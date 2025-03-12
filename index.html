@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group X</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("NRhPpfgTUv6BRjD63"); // Your Public Key
+        })();
+    </script>
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        header {
+            background-color: #2c3e50;
+            color: #9b59b6;
+            padding: 20px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        .button {
+            background-color: #9b59b6;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .button:hover {
+            background-color: #8e44ad;
+        }
+        .form-container {
+            display: none;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .form-container input, .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>Group X - The Elite Crew</header>
+    <div class="container">
+        <h1>Welcome to Group X</h1>
+        <p>We are the students of 8N joining together as Group X. Just a bunch of legends having fun but serious when needed.</p>
+        <h2>Key Members</h2>
+        <p>
+            <a href="hadriel.html">Hadriel Rovin</a> |
+            <a href="shamus.html">Shamus Mitchell</a> |
+            <a href="ayaan.html">Ayaan Sharief</a>
+        </p>
+        <button class="button" onclick="showForm()">Join Us</button>
+        <div class="form-container" id="formContainer">
+            <h3>Join Group X</h3>
+            <form id="joinForm" onsubmit="submitForm(event)">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <textarea id="reason" placeholder="Why do you want to join?" required></textarea>
+                <input type="email" id="gmail" placeholder="Your Gmail" required>
+                <button type="submit" class="button">Submit</button>
+            </form>
+            <p id="responseMessage"></p>
+        </div>
+        <h3>Group Rules</h3>
+        <ul>
+            <li>Be Respectful - No intentional annoyance</li>
+            <li>No Swearing - Keep it clean</li>
+            <li>No Talking - When class is on</li>
+            <li>No Patriotism - We are one team</li>
+            <li>No Racism - Jokes allowed, but not offensive</li>
+            <li>Be Responsible - In class and beyond</li>
+        </ul>
+        <h3>Weekly Leader Rules</h3>
+        <ul>
+            <li>Don't boss people around</li>
+            <li>Voting required for changes</li>
+            <li>No changes unless everyone agrees</li>
+        </ul>
+        <h3>Weekly Leader Rotation</h3>
+        <ul>
+            <li>Monday to Friday</li>
+            <li>Rolling occurs on Friday evening or Saturday</li>
+        </ul>
+        <h3>Contact Us</h3>
+        <p>Email: <a href="mailto:groupxdps@gmail.com">groupxdps@gmail.com</a></p>
+    </div>
+    <footer>
+        &copy; 2025 Group X | Stay Epic
+    </footer>
+    <script>
+        function showForm() {
+            document.getElementById('formContainer').style.display = 'block';
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const reason = document.getElementById('reason').value.trim();
+            const gmail = document.getElementById('gmail').value.trim();
+            const responseMessage = document.getElementById('responseMessage');
+
+            if (!name || !reason || !gmail) {
+                responseMessage.style.color = "red";
+                responseMessage.innerText = "All fields are required!";
+                return;
+            }
+
+            emailjs.send("groupxgmail", "template_y37stws", {
+                from_name: name,
+                reason: reason,
+                gmail: gmail
+            }).then(
+                function(response) {
+                    console.log("Email sent successfully!", response);
+                    responseMessage.style.color = "green";
+                    responseMessage.innerText = "Request Sent Successfully!";
+                    alert("✅ Your request has been sent successfully!");
+                },
+                function(error) {
+                    console.error("Failed to send email:", error);
+                    responseMessage.style.color = "red";
+                    responseMessage.innerText = "Failed to Send. Try Again.";
+                    alert("❌ Failed to send the request. Please try again.");
+                }
+            );
+        }
+    </script>
+</body>
+</html>
